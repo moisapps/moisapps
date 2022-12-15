@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"github.com/moisapps/moisapps/internal"
 	"github.com/spf13/cobra"
 )
 
@@ -13,6 +14,7 @@ var rootCmd = &cobra.Command{
 var Name string
 
 func Execute() error {
+	internal.SetupDatabase()
 	rootCmd.PersistentFlags().StringVarP(&Name, "name", "n", "", "Nome da aplicacao")
 
 	return rootCmd.Execute()
