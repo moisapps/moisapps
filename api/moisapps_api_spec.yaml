@@ -1,0 +1,77 @@
+openapi: 3.0.1
+info:
+  title: Moisapss API
+  description: 'Services for Moisapps automation and Web UI'
+  version: 1.0.0
+servers:
+  - url: https://<HOST>:<PORT>/api/v1
+tags:
+  - name: Applications
+    description: Application Services
+  - name: Technologies
+    description: Technologies informations
+
+
+paths:
+  /aplications:
+    post:
+      tags:
+        - Applications
+      summary: Creates a new Application
+      description: Creates project structure, given technology, version
+      operationId: createApplication
+      requestBody:
+        description: Application object with information to create structure
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Application'
+        required: true
+      responses:
+        412:
+          description: Invalid application payload
+          content: {}
+        201:
+          description: Successfully created
+  /technologies:
+    get:
+      tags:
+        - Technologies
+      summary: List available technologies
+      description: List current technologies supported by moisapps automation
+      operationId: listTechnologies
+      responses:
+        404:
+          description: Technologies not found
+          content: {}
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Technology'
+components:
+  schemas:
+    Application:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Arcoiro
+        technology:
+          type: object
+          description: Technology to create app
+          properties:
+            name:
+              type: string
+            version:
+              type: string
+    Technology:
+      type: object
+      properties:
+        name:
+          type: string
+        version:
+          type: string
