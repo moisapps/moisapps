@@ -1,3 +1,5 @@
 # Byte-compiled / optimized / DLL files
+.idea
 go.sum
-moisapps
+build/package/moisapps/usr/local/bin/moisapps
+build/package/moisapps.deb
