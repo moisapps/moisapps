@@ -1,0 +1,3 @@
+#!/bin/bash
+mkdir -p /usr/local/etc/moisapps
+mkdir -p /etc/bash_completion.d
