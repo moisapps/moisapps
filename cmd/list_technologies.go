@@ -2,7 +2,8 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/moisapps/moisapps/internal"
+	"github.com/moisapps/moisapps/internal/pkg/entity"
+	"github.com/moisapps/moisapps/internal/pkg/infrastructure"
 	"github.com/spf13/cobra"
 )
 
@@ -11,7 +12,7 @@ func listTechnologiesCmd() *cobra.Command {
 		Use:   "technology",
 		Short: "desenha as tecnologias e versoes suportadas",
 		RunE: func(cmd *cobra.Command, args []string) error {
-			repository := internal.NewRepository(internal.DB)
+			repository := entity.NewRepository(infrastructure.DB)
 			technologies, err := repository.FindAll()
 			if err != nil {
 				return err
