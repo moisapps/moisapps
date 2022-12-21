@@ -1,16 +1,18 @@
-package cmd
+package desenha
 
 import (
+	"github.com/moisapps/moisapps/cmd"
+	"github.com/moisapps/moisapps/cmd/application"
 	"github.com/spf13/cobra"
 )
 
 func init() {
-	rootCmd.AddCommand(desenhaCmd())
+	cmd.rootCmd.AddCommand(desenhaCmd())
 }
 
 func desenhaCmd() *cobra.Command {
-	listTechsCmd := listTechnologiesCmd()
-	createAppCmd := appCmd()
+	listTechsCmd := cmd.listTechnologiesCmd()
+	createAppCmd := application.appCmd()
 	desenha := cobra.Command{
 		Use:   "desenha",
 		Short: "desenha um(a) app, namespace, etc",

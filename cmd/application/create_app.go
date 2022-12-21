@@ -1,7 +1,9 @@
-package cmd
+package application
 
 import (
-	"github.com/moisapps/moisapps/internal"
+	cmd2 "github.com/moisapps/moisapps/cmd"
+	"github.com/moisapps/moisapps/internal/pkg/entity"
+	"github.com/moisapps/moisapps/internal/pkg/infrastructure"
 	"github.com/spf13/cobra"
 )
 
@@ -11,7 +13,7 @@ func appCmd() *cobra.Command {
 		Use:   "app",
 		Short: "desenha uma app",
 		RunE: func(cmd *cobra.Command, args []string) error {
-			nodeApp := internal.NewNodeApp(Name, version, path, internal.DB)
+			nodeApp := entity.NewNodeApp(cmd2.Name, version, path, infrastructure.DB)
 			err := nodeApp.Create()
 			return err
 		},
