@@ -7,7 +7,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func listTechnologiesCmd() *cobra.Command {
+func ListTechnologiesCmd() *cobra.Command {
 	return &cobra.Command{
 		Use:   "technology",
 		Short: "desenha as tecnologias e versoes suportadas",
