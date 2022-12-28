@@ -2,6 +2,7 @@ package entity
 
 import (
 	"database/sql"
+	"errors"
 	"strings"
 )
 
@@ -20,7 +21,16 @@ type application struct {
 	path    string
 }
 
-func NewApplication(name, tech, version, path string) application {
+func NewApplication(name, tech, version, path string) (application, error) {
+	if len(strings.TrimSpace(name)) < 1 {
+		return application{}, errors.New("informar o nome da aplicação é obrigatório")
+	}
+	if len(strings.TrimSpace(tech)) < 1 {
+		return application{}, errors.New("informar o nome da tecnologia é obrigatório")
+	}
+	if len(strings.TrimSpace(version)) < 1 {
+		return application{}, errors.New("informar a versão da tecnologia é obrigatório")
+	}
 	if strings.Contains(strings.ToUpper(tech), "NODE") {
 		tech = "NODE"
 	}
@@ -29,7 +39,7 @@ func NewApplication(name, tech, version, path string) application {
 		tech:    tech,
 		version: version,
 		path:    path,
-	}
+	}, nil
 }
 
 func (a application) Create(db *sql.DB) error {
@@ -38,6 +48,8 @@ func (a application) Create(db *sql.DB) error {
 	case "NODE":
 		nodeApp := NewNodeApp(a.name, a.version, a.path, db)
 		err = nodeApp.Create()
+	default:
+		err = errors.New("technologia não suportada ou não implementada até o momento")
 	}
 	return err
 }

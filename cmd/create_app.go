@@ -12,8 +12,11 @@ func AppCmd() *cobra.Command {
 		Use:   "app",
 		Short: "desenha uma app",
 		RunE: func(cmd *cobra.Command, args []string) error {
-			newApplication := entity.NewApplication(Name, technology, version, path)
-			err := newApplication.Create(infrastructure.DB)
+			newApplication, err := entity.NewApplication(Name, technology, version, path)
+			if err != nil {
+				return err
+			}
+			err = newApplication.Create(infrastructure.DB)
 			return err
 		},
 	}
