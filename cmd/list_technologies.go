@@ -1,4 +1,4 @@
-package technologies
+package cmd
 
 import (
 	"fmt"
@@ -12,7 +12,7 @@ func ListTechnologiesCmd() *cobra.Command {
 		Use:   "technology",
 		Short: "desenha as tecnologias e versoes suportadas",
 		RunE: func(cmd *cobra.Command, args []string) error {
-			repository := entity.NewRepository(infrastructure.DB)
+			repository := entity.NewTechnologyRepository(infrastructure.DB)
 			technologies, err := repository.FindAll()
 			if err != nil {
 				return err

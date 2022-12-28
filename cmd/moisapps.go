@@ -5,7 +5,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var RootCmd = &cobra.Command{
+var rootCmd = &cobra.Command{
 	Use:   "moisapps",
 	Short: "Moisapps is an automation for application creation and release",
 	Long:  "Moisapps cli a tool for application creation",
@@ -13,9 +13,12 @@ var RootCmd = &cobra.Command{
 
 var Name string
 
+func init() {
+	rootCmd.PersistentFlags().BoolP("help", "h", false, "me ajuda silvio")
+}
+
 func Execute() error {
 	infrastructure.SetupDatabase()
-	RootCmd.PersistentFlags().StringVarP(&Name, "name", "n", "", "Nome da aplicacao")
-
-	return RootCmd.Execute()
+	rootCmd.PersistentFlags().StringVarP(&Name, "name", "n", "", "Nome da aplicacao")
+	return rootCmd.Execute()
 }
