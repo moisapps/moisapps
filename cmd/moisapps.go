@@ -13,9 +13,12 @@ var rootCmd = &cobra.Command{
 
 var Name string
 
+func init() {
+	rootCmd.PersistentFlags().BoolP("help", "h", false, "me ajuda silvio")
+}
+
 func Execute() error {
 	infrastructure.SetupDatabase()
 	rootCmd.PersistentFlags().StringVarP(&Name, "name", "n", "", "Nome da aplicacao")
-
 	return rootCmd.Execute()
 }

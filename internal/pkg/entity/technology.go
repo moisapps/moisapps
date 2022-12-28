@@ -21,15 +21,15 @@ func (t technology) Version() string {
 	return t.version
 }
 
-type repository interface {
+type technologyRepository interface {
 	FindAll() ([]technology, error)
 }
 
-type repositoryImpl struct {
+type technologyRepositoryImpl struct {
 	db *sql.DB
 }
 
-func (r repositoryImpl) FindAll() ([]technology, error) {
+func (r technologyRepositoryImpl) FindAll() ([]technology, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(timeoutInMillis)*time.Millisecond)
 	defer cancel()
 	rows, err := r.db.QueryContext(ctx, "SELECT T.NAME, V.NUMBER FROM TECHNOLOGY T INNER JOIN VERSION V ON V.TECHNOLOGY_NAME = T.NAME")
@@ -49,6 +49,6 @@ func (r repositoryImpl) FindAll() ([]technology, error) {
 	return technologies, nil
 }
 
-func NewRepository(db *sql.DB) repository {
-	return repositoryImpl{db: db}
+func NewTechnologyRepository(db *sql.DB) technologyRepository {
+	return technologyRepositoryImpl{db: db}
 }
